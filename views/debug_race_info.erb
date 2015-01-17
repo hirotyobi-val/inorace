@@ -44,5 +44,14 @@
       </table>
     </div>
 
+    <div class="result_rank_1">
+      1位:
+      <%= @race.get_rank_ordered_runner_ids[0] %>
+    </div>
+    <div class="result_rank_2">
+      2位:
+      <%= @race.get_rank_ordered_runner_ids[1] %>
+    </div>
+
   </body>
 </html>
