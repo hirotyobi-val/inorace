@@ -3,10 +3,46 @@
   <head>
     <meta charset="UTF-8" />
     <title>いのレース</title>
+    <style type="text/css">
+      td.value {
+        text-align: right;
+      }
+    </style>
   </head>
   <body>
 
-<%= @race.get_course.distance %>
+    <div class="put_distance">
+      レース距離：<%= @race.get_course.distance %>
+    </div>
+
+    <div class="put_runnners">
+      <table border>
+        <tr>
+          <td>
+          </td>
+          <td>
+            スピード
+          </td>
+          <td>
+            安定感
+          </td>
+        </tr>
+        <% for i in 0..@race.get_runners.length-1 %>
+          <% runner = @race.get_runners[i] %>
+          <tr>
+            <td>
+              <%= i+1 %> 
+            </td>
+            <td class="value">
+              <%= runner.speed %> 
+            </td>
+            <td class="value">
+              <%= runner.stable %> 
+            </td>
+          </tr>
+        <% end %>
+      </table>
+    </div>
 
   </body>
 </html>
