@@ -11,6 +11,7 @@
     <script src="http://cdn.rawgit.com/phi-jp/tmlib.js/0.3.0/build/tmlib.js"></script>
     <script>
         turn = 0;
+        started = false;
         <% turn = 0%>
         tm.main(function() {
           // キャンバスアプリケーションを生成
@@ -54,8 +55,14 @@
             },
             
             update: function(app) {
+              // タッチしたら開始
+                var pointing = app.pointing;
+                if (pointing.getPointing()) {
+                started = true;
+              }
+
               // 更新処理
-              if (turn < <%= @race.get_turns.length %>){
+              if (turn < <%= @race.get_turns.length %> && started){
                 <% for i in 0..@race.get_runners.length-1 %>
                   <% runner = @race.get_runners[i] %>
                   this.star<%= runner.id %>.x = turns[turn][<%= i %>]/15
