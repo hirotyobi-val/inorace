@@ -32,6 +32,16 @@ class Race
     @is_end = false
   end
 
+  def set_original_race(course, n_runner, speeds, stables)
+    @course = course
+
+    @runners = []
+    for i in 0..n_runner-1
+      @runners << create_runner(i+1, speeds[i], stables[i])
+    end
+    @is_end = false
+  end
+
   def get_course
     @course
   end

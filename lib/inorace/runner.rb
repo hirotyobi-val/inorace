@@ -36,3 +36,7 @@ def create_random_runner(id)
   # hiddenのsource
   Runner.new(id, 99 + rand(3), 1 + rand(15))
 end
+
+def create_runner(id, speed, stable)
+  Runner.new(id, speed, stable)
+end
