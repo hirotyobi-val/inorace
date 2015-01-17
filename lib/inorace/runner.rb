@@ -25,8 +25,8 @@ class Runner
 
   def create_random_runner(id)
     # hiddenのsource
-    # スピード798～802, 安定感1～61
-    Runner.new(id, 798 + rand(5), 1 + rand(60))
+    # スピード798～802, 安定感20～60
+    Runner.new(id, 798 + rand(5), 20 + rand(41))
   end
 
   # public_class_method :new, :create_random_runner
@@ -34,7 +34,7 @@ end
 
 def create_random_runner(id)
   # hiddenのsource
-  Runner.new(id, 798 + rand(5), 1 + rand(60))
+  Runner.new(id, 798 + rand(5), 20 + rand(41))
 end
 
 def create_runner(id, speed, stable)
