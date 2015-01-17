@@ -38,7 +38,7 @@ class Race
   def run
     # ターン実行
     while !@is_end
-      sleep(0.2)
+      # sleep(0.2)
       # 走る
       @runners.each do |runner|
         runner.normal_run
@@ -49,18 +49,18 @@ class Race
       end
       # 出力
       @runners.each do |runner|
-        print "#{runner.id}(speed:#{runner.speed}, stable:#{runner.stable})"
-        print "#{runner.rank}位"
-        print "#{format("%4d", runner.position)}"
-        for i in 1..((@course.distance - runner.position + 9)/10)
-          print " "
-        end
-        puts "#{[runner.id]}"
+        # print "#{runner.id}(speed:#{runner.speed}, stable:#{runner.stable})"
+        # print "#{runner.rank}位"
+        # print "#{format("%4d", runner.position)}"
+        # for i in 1..((@course.distance - runner.position + 9)/10)
+        #   print " "
+        # end
+        # puts "#{[runner.id]}"
         # 誰かがゴールについていたら終了フラグ
         @is_end = true if runner.position >= @course.distance
       end
-      puts
+      # puts
     end
-    p "#{@runners.sort{|r1, r2| r2.position <=> r1.position}[0].id}-#{@runners.sort{|r1, r2| r2.position <=> r1.position}[1].id}"
+    # p "#{@runners.sort{|r1, r2| r2.position <=> r1.position}[0].id}-#{@runners.sort{|r1, r2| r2.position <=> r1.position}[1].id}"
   end
 end
