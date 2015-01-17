@@ -7,6 +7,9 @@
       td.value {
         text-align: right;
       }
+      td.center {
+        text-align: center;
+      }
     </style>
     <script src="http://cdn.rawgit.com/phi-jp/tmlib.js/0.3.0/build/tmlib.js"></script>
     <script>
@@ -93,6 +96,16 @@
           <td>
             安定感
           </td>
+          <% if @is_bet %>
+            <td>
+              倍率
+            </td>
+            <% for j in 0..@race.get_runners.length-1 %>
+              <td class="center">
+                [<%= j+1 %>]
+              </td>
+            <% end %>
+        <% end %>
         </tr>
         <% for i in 0..@race.get_runners.length-1 %>
           <% runner = @race.get_runners[i] %>
@@ -101,11 +114,45 @@
               <%= runner.id %> 
             </td>
             <td class="value">
-              <%= runner.speed %> 
+              <!-- <%= runner.speed %> -->
+<!-- 
+              <%="速い" if runner.speed == 798 %>
+              <%="やや速い" if runner.speed == 799 %>
+              <%="普通" if runner.speed == 800 %>
+              <%="やや遅い" if runner.speed == 801 %>
+              <%="遅い" if runner.speed == 802 %>
+ -->
+              <%="×" if runner.speed == 798 %>
+              <%="▲" if runner.speed == 799 %>
+              <%="△" if runner.speed == 800 %>
+              <%="○" if runner.speed == 801 %>
+              <%="◎" if runner.speed == 802 %>
+ <!-- 
+              <%="E" if runner.speed == 798 %>
+              <%="D" if runner.speed == 799 %>
+              <%="C" if runner.speed == 800 %>
+              <%="B" if runner.speed == 801 %>
+              <%="A" if runner.speed == 802 %>
+ -->
             </td>
-            <td class="value">
-              <%= runner.stable %> 
+            <td>
+              <!-- <%= runner.stable %> -->
+              <% for l in 1..runner.stable/5 %>|<% end %>
             </td>
+            <% if @is_bet %>
+              <td class="value">
+                x<%= @first_odds[i] %>
+              </td>
+              <% for j in 0..@race.get_runners.length-1 %>
+                <td class="center">
+                  <% if i==j %>
+                    [<%= j+1 %>]
+                  <% else %>
+                    x<%= @pair_odds[i][j] %>
+                  <% end %>
+                </td>
+              <% end %>
+            <% end %>
           </tr>
         <% end %>
       </table>
@@ -123,6 +170,29 @@
       2位:
       <%= @race.get_rank_ordered_runner_ids[1] %>
     </div>
+
+    <% if @is_bet %>
+      <div class="result_odds">
+        <table border>
+          <tr>
+            <td class="center">
+              <%= @race.get_rank_ordered_runner_ids[0] %>
+            </td>
+            <td class="center">
+              x<%= @first_odds[@race.get_rank_ordered_runner_ids[0]-1] %>
+            </td>
+          </tr>
+          <tr>
+            <td class="center">
+              <%= @race.get_rank_ordered_runner_ids[0] %>-<%= @race.get_rank_ordered_runner_ids[1] %>
+            </td>
+            <td class="center">
+              x<%= @pair_odds[@race.get_rank_ordered_runner_ids[0]-1][@race.get_rank_ordered_runner_ids[1]-1] %>
+            </td>
+          </tr>
+        </table>
+      </div>
+    <% end %>
 
   </body>
 </html>

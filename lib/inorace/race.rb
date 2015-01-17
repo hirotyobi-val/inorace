@@ -50,6 +50,22 @@ class Race
     @runners
   end
 
+  def get_runner_speeds
+    result = []
+    @runners.each do |runner|
+      result << runner.speed
+    end
+    return result
+  end
+
+  def get_runner_stables
+    result = []
+    @runners.each do |runner|
+      result << runner.stable
+    end
+    return result
+  end
+
   def get_turns
     @turns
   end
