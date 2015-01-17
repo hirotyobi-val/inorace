@@ -16,7 +16,7 @@
           // キャンバスアプリケーションを生成
           var app = tm.display.CanvasApp("#course");
           // リサイズ
-          app.resize(<%= @race.get_course.distance+100 %>/5, <%= @race.get_runners.length*50 %>);
+          app.resize(<%= @race.get_course.distance+100 %>/15, <%= @race.get_runners.length*50 %>);
           // ウィンドウにフィットさせる
           app.fitWindow();
 
@@ -58,8 +58,8 @@
               if (turn < <%= @race.get_turns.length %>){
                 <% for i in 0..@race.get_runners.length-1 %>
                   <% runner = @race.get_runners[i] %>
-                  this.star<%= runner.id %>.x = turns[turn][<%= i %>]/5
-                  this.star<%= runner.id %>.rotation = turns[turn][<%= i %>]/5
+                  this.star<%= runner.id %>.x = turns[turn][<%= i %>]/15
+                  this.star<%= runner.id %>.rotation = turns[turn][<%= i %>]/15
                 <% end %>
                 turn += 1;
                 <% turn += 1 %>

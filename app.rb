@@ -6,7 +6,7 @@ class MyApp < Sinatra::Base
 
   get '/' do
     @race = Race.new
-    @race.set_normal_race(Course.new(8000), 5)
+    @race.set_normal_race(Course.new(18000), 5)
     @race.run
     erb :debug_race_info
   end
@@ -16,7 +16,7 @@ class MyApp < Sinatra::Base
     runners = params['runners'].to_i if @params['runners'].to_i > 1
 
     @race = Race.new
-    @race.set_normal_race(Course.new(8000), runners)
+    @race.set_normal_race(Course.new(18000), runners)
     @race.run
     erb :debug_race_info
   end
