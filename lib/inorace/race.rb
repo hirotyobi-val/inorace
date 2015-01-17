@@ -17,6 +17,14 @@ class Race
     @is_end = false
   end
 
+  def get_course
+    @course
+  end
+
+  def get_runners
+    @runners
+  end
+
   def puts_runners_info
     # レース設定表示
     puts "distance:#{@course.distance}"
