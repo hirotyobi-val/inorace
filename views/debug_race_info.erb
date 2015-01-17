@@ -8,6 +8,66 @@
         text-align: right;
       }
     </style>
+    <script src="http://cdn.rawgit.com/phi-jp/tmlib.js/0.3.0/build/tmlib.js"></script>
+    <script>
+        turn = 0;
+        <% turn = 0%>
+        tm.main(function() {
+          // キャンバスアプリケーションを生成
+          var app = tm.display.CanvasApp("#course");
+          // リサイズ
+          app.resize(<%= @race.get_course.distance+100 %>/5, <%= @race.get_runners.length*50 %>);
+          // ウィンドウにフィットさせる
+          app.fitWindow();
+
+          // ターン毎の位置を2次元配列に格納
+          turns = new Array(<%= @race.get_turns.length %>);
+          for (t=0; t<turns.length; t++){
+            turns[t] = new Array(<%= @race.get_runners.length %>);
+          }
+          <% for t in 0..@race.get_turns.length-1 %>
+            <% for i in 0..@race.get_runners.length-1 %>
+              turns[<%= t %>][<%= i %>] = <%= @race.get_turn_positions[t][i] %>;
+            <% end %>
+          <% end %>
+
+          // シーンを生成&入れ替え
+          var scene = MainScene();
+          app.replaceScene(scene);
+
+          // 実行
+          app.run();
+        });
+
+        // シーンを定義
+        tm.define("MainScene", {
+            superClass: "tm.app.Scene",
+            
+            init: function() {
+              this.superInit();
+
+              <% for i in 0..@race.get_runners.length-1 %>
+              <% runner = @race.get_runners[i] %>
+                this.star<%= runner.id %> = tm.display.StarShape().addChildTo(this);
+                this.star<%= runner.id %>.setPosition(0, 50*<%= runner.id %>-25);
+              <% end %>
+            },
+            
+            update: function(app) {
+              // 更新処理
+              if (turn < <%= @race.get_turns.length %>){
+                <% for i in 0..@race.get_runners.length-1 %>
+                  <% runner = @race.get_runners[i] %>
+                  this.star<%= runner.id %>.x = turns[turn][<%= i %>]/5
+                  this.star<%= runner.id %>.rotation = turns[turn][<%= i %>]/5
+                <% end %>
+                turn += 1;
+                <% turn += 1 %>
+              }
+            }
+        });
+
+    </script>
   </head>
   <body>
 
@@ -42,6 +102,10 @@
           </tr>
         <% end %>
       </table>
+    </div>
+
+    <div class="canvas">
+      <canvas id="course"></canvas>
     </div>
 
     <div class="result_rank_1">

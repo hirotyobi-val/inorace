@@ -40,6 +40,10 @@ class Race
     @runners
   end
 
+  def get_turns
+    @turns
+  end
+
   def get_turn_positions
     result = []
     @turns.each do |turn|
