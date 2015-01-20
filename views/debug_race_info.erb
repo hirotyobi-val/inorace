@@ -80,7 +80,14 @@
                 this.label2 = tm.display.Label("2着:<%= @race.get_rank_ordered_runner_ids[1] %> ").addChildTo(this);
                 <% if @is_bet %>
                   this.label3 = tm.display.Label("<%= @race.get_rank_ordered_runner_ids[0] %> x<%= @first_odds[@race.get_rank_ordered_runner_ids[0]-1] %>").addChildTo(this);
-                  this.label4 = tm.display.Label("<%= @race.get_rank_ordered_runner_ids[0] %>-<%= @race.get_rank_ordered_runner_ids[1] %> x<%= @pair_odds[@race.get_rank_ordered_runner_ids[0]-1][@race.get_rank_ordered_runner_ids[1]-1] %>").addChildTo(this);
+                  <% id_a = @race.get_rank_ordered_runner_ids[0] %>
+                  <% id_b = @race.get_rank_ordered_runner_ids[1] %>
+                  <% if id_a > id_b %>
+                    <% id_z = id_a %>
+                    <% id_a = id_b %>
+                    <% id_b = id_z %>
+                  <% end %>
+                  this.label4 = tm.display.Label("<%= id_a %>-<%= id_b %> x<%= @pair_odds[id_a-1][id_b-1] %>").addChildTo(this);
                 <% end %>
                 // 位置指定
                 this.label1.setPosition(300, 30);
