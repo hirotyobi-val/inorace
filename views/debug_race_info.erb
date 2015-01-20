@@ -74,6 +74,22 @@
                 turn += 1;
                 <% turn += 1 %>
               }
+              if (turn >= <%= @race.get_turns.length %>){
+                // 結果表示(倍率表示時のみオッズも表示)
+                this.label1 = tm.display.Label("1着:<%= @race.get_rank_ordered_runner_ids[0] %> ").addChildTo(this);
+                this.label2 = tm.display.Label("2着:<%= @race.get_rank_ordered_runner_ids[1] %> ").addChildTo(this);
+                <% if @is_bet %>
+                  this.label3 = tm.display.Label("<%= @race.get_rank_ordered_runner_ids[0] %> x<%= @first_odds[@race.get_rank_ordered_runner_ids[0]-1] %>").addChildTo(this);
+                  this.label4 = tm.display.Label("<%= @race.get_rank_ordered_runner_ids[0] %>-<%= @race.get_rank_ordered_runner_ids[1] %> x<%= @pair_odds[@race.get_rank_ordered_runner_ids[0]-1][@race.get_rank_ordered_runner_ids[1]-1] %>").addChildTo(this);
+                <% end %>
+                // 位置指定
+                this.label1.setPosition(300, 30);
+                this.label2.setPosition(300, 60);
+                <% if @is_bet %>
+                  this.label3.setPosition(300, 110);
+                  this.label4.setPosition(300, 140);
+                <% end %>
+              }
             }
         });
 
@@ -161,38 +177,6 @@
     <div class="canvas">
       <canvas id="course"></canvas>
     </div>
-
-    <div class="result_rank_1">
-      1位:
-      <%= @race.get_rank_ordered_runner_ids[0] %>
-    </div>
-    <div class="result_rank_2">
-      2位:
-      <%= @race.get_rank_ordered_runner_ids[1] %>
-    </div>
-
-    <% if @is_bet %>
-      <div class="result_odds">
-        <table border>
-          <tr>
-            <td class="center">
-              <%= @race.get_rank_ordered_runner_ids[0] %>
-            </td>
-            <td class="center">
-              x<%= @first_odds[@race.get_rank_ordered_runner_ids[0]-1] %>
-            </td>
-          </tr>
-          <tr>
-            <td class="center">
-              <%= @race.get_rank_ordered_runner_ids[0] %>-<%= @race.get_rank_ordered_runner_ids[1] %>
-            </td>
-            <td class="center">
-              x<%= @pair_odds[@race.get_rank_ordered_runner_ids[0]-1][@race.get_rank_ordered_runner_ids[1]-1] %>
-            </td>
-          </tr>
-        </table>
-      </div>
-    <% end %>
 
   </body>
 </html>
