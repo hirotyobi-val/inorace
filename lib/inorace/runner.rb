@@ -3,7 +3,7 @@ class Runner
   @id # 走者番号
   @speed # 初期スピード(Intのwrap)
   # @stamina # 初期スタミナ(Intのwarp?)
-  @stable # 初期安定感(Intのwrap?)
+  @stable # 初期ブレ度(Intのwrap?)
   # @spirit # 初期根性(Intのwarp?)
 
   @position　# 現在位置(Intのwrap)
@@ -25,7 +25,7 @@ class Runner
 
   def create_random_runner(id)
     # hiddenのsource
-    # スピード798～802, 安定感20～60
+    # スピード798～802, ブレ度20～60
     Runner.new(id, 798 + rand(5), 20 + rand(41))
   end
 
